@@ -6,19 +6,59 @@ public:
     int data;
     Node* next;
 
-public: 
-    Node(int data1, Node* next1){
-        data = data1;
-        next = next1;
+    Node(int data){
+        this->data = data;
+        this->next = nullptr;
     }
 };
 
-int main(){
-    vector<int> arr = {2, 4, 6};
-    Node* y = new Node(arr[0], nullptr);
+Node* convertArr2LL(vector<int> &arr, int size){
+    if(size == 0) return nullptr;
+    Node* head = new Node(arr[0]);
+    Node* mover = head;
+    for(int i=1; i<size; i++){
+        Node* temp = new Node(arr[i]);
+        mover->next = temp;
+        mover = temp;
+    }
+    return head;
+}
 
-    cout << y << endl;
-    cout << y->data << endl;
+void printLL(Node* head){
+    Node* temp = head;
+    while(temp != nullptr){
+        cout << temp->data <<"->";
+        temp = temp-> next;
+    }
+    cout << "nullptr" << endl;
+}
+
+int lengthOfLL(Node* head){
+    Node* temp = head;
+    int length = 0;
+    while(temp != nullptr){
+        length++;
+        temp = temp->next;
+    }
+    return length;
+}
+
+int main(){
+    vector<int> arr = {1, 2, 3, 4, 5, 6};
+    int size = arr.size();
+
+    // Node* y = new Node(arr[0], nullptr);
+    // cout << y << endl;
+    // cout << y->data << endl;
+
+    // Node* head = convertArr2LL(arr);
+    // cout << head->data << endl;
+
+    Node* head = convertArr2LL(arr,size);
+    printLL(head);
+
+    int length = lengthOfLL(head);
+    cout << "length of linked list is : " << length << endl;
 
     return 0;
 }
