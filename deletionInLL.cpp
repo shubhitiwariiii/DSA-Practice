@@ -1,12 +1,14 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-class Node{
+class Node
+{
 public:
     int data;
-    Node* next;
+    Node *next;
 
-    Node(int data){
+    Node(int data)
+    {
         this->data = data;
         this->next = nullptr;
     }
@@ -18,56 +20,97 @@ public:
     }
 };
 
-Node* arrToLL(vector<int> &arr, int size){
-    if(size == 0) return nullptr;
-    Node* head = new Node(arr[0]);
-    Node* mover = head;
-    for(int i=1; i<size; i++){
-        Node* temp = new Node(arr[i]);
+Node *arrToLL(vector<int> &arr, int size)
+{
+    if (size == 0)
+        return nullptr;
+    Node *head = new Node(arr[0]);
+    Node *mover = head;
+    for (int i = 1; i < size; i++)
+    {
+        Node *temp = new Node(arr[i]);
         mover->next = temp;
         mover = temp;
     }
     return head;
 }
 
-Node* printLL(Node* head){
-    Node* temp = head;
-    while(temp != NULL){
+Node *printLL(Node *head)
+{
+    Node *temp = head;
+    while (temp != NULL)
+    {
         cout << temp->data << " ";
         temp = temp->next;
     }
     cout << "NULL" << endl;
 }
 
-Node* deletionAtHead(Node* head){
-    if(head == NULL) return nullptr;
-    Node* temp = head;
+Node *deletionAtHead(Node *head)
+{
+    if (head == NULL)
+        return nullptr;
+    Node *temp = head;
     head = head->next;
     delete temp;
     return head;
 }
 
-Node* deletionAtTail(Node* head){
-    if(head == NULL) return nullptr;
-    if(head->next == NULL){
+Node *deletionAtTail(Node *head)
+{
+    if (head == NULL)
+        return nullptr;
+    if (head->next == NULL)
+    {
         delete head;
         return nullptr;
     }
-    Node* temp = head;
-    while(temp->next->next != NULL){
+    Node *temp = head;
+    while (temp->next->next != NULL)
+    {
         temp = temp->next;
     }
     delete temp->next;
     temp->next = nullptr;
-    
+
     return head;
 }
 
-int main(){
-    vector<int> arr = {1, 2, 3, 4, 5};
-    int size = arr.size(); 
+Node *deletionAtK(Node *head, int k)
+{
+    if (head == NULL)
+        return nullptr;
+    if (k == 1)
+    {
+        Node *temp = head;
+        head = head->next;
+        delete temp;
+        return head;
+    }
+    int cnt = 0;
+    Node *temp = head;
+    Node *prev = nullptr;
+    while (temp != NULL)
+    {
+        cnt++;
+        if (cnt == k)
+        {
+            prev->next = prev->next->next;
+            delete temp;
+            break;
+        }
+        prev = temp;
+        temp = temp->next;
+    }
+    return head;
+}
 
-    Node* head = arrToLL(arr, size);
+int main()
+{
+    vector<int> arr = {1, 2, 3, 4, 5, 6, 7, 8};
+    int size = arr.size();
+
+    Node *head = arrToLL(arr, size);
     printLL(head);
 
     head = deletionAtHead(head);
@@ -75,5 +118,7 @@ int main(){
 
     head = deletionAtTail(head);
     printLL(head);
-    // head = deletionAtK(head, 100, 4);
+
+    head = deletionAtK(head, 4);
+    printLL(head);
 }
