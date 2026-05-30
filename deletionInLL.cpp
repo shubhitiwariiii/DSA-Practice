@@ -47,6 +47,22 @@ Node* deletionAtHead(Node* head){
     return head;
 }
 
+Node* deletionAtTail(Node* head){
+    if(head == NULL) return nullptr;
+    if(head->next == NULL){
+        delete head;
+        return nullptr;
+    }
+    Node* temp = head;
+    while(temp->next->next != NULL){
+        temp = temp->next;
+    }
+    delete temp->next;
+    temp->next = nullptr;
+    
+    return head;
+}
+
 int main(){
     vector<int> arr = {1, 2, 3, 4, 5};
     int size = arr.size(); 
@@ -56,6 +72,8 @@ int main(){
 
     head = deletionAtHead(head);
     printLL(head);
-    // head = deletionAtTail(head, 100);
+
+    head = deletionAtTail(head);
+    printLL(head);
     // head = deletionAtK(head, 100, 4);
 }
