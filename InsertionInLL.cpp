@@ -39,9 +39,18 @@ void printLL(Node* head){
     cout << "nullptr" << endl;
 }
 
-Node* insertAtHead(Node* head, int val){
-    Node* temp = new Node(val, head);
-    return temp;
+// Node* insertAtHead(Node* head, int val){
+//     Node* temp = new Node(val, head);
+//     return temp;
+// }
+
+Node* insertAtTail(Node* head, int val){
+    Node* temp = head;
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+    temp->next = new Node(val);
+    return head;
 }
 
 int main(){
@@ -49,7 +58,9 @@ int main(){
     int size = arr.size();
 
     Node* head = convertArr2LL(arr, size);
-    head = insertAtHead(head, 100);
+    // head = insertAtHead(head, 100);
+    head = insertAtTail(head, 100);
+    // head = insertAtK(head, 100, K);
 
     printLL(head);
 
